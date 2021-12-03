@@ -27,15 +27,18 @@ string(APPEND CMAKE_CXX_FLAGS " -Wno-unused-command-line-argument")
 string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
 hunter_add_package(GTest)
+hunter_add_package(nlohmann_json)
 find_package(GTest CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+
 
 add_library(${PROJECT_NAME} STATIC
-  # enum your files and delete this comment
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
 )
 
 add_executable(demo
-  ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/sources/source.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -86,9 +89,12 @@ install(TARGETS ${PROJECT_NAME} demo
   INCLUDES DESTINATION include
 )
 
+target_link_libraries(${PROJECT_NAME} nlohmann_json::nlohmann_json)
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/ DESTINATION include)
 
 install(EXPORT "${PROJECT_NAME}-targets"
   NAMESPACE "${PROJECT_NAME}::"
   DESTINATION "lib/cmake"
 )
+
+add_definitions(-DJsonPath=\"$(CMAKE_SOURCE_DIR)/text1.txt\")
