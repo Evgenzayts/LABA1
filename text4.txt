@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "name": "Ivanov Petr",
+      "name": 123456789,
       "group": "1",
       "avg": "4.25",
       "debt": null

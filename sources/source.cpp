@@ -37,7 +37,6 @@ auto get_group(const json& j) -> std::any {
 }
 
 void from_json(const json& j, Student& s) {
-
   s.name = get_name(j.at("name"));
   s.group = get_group(j.at("group"));
   s.avg = get_avg(j.at("avg"));
